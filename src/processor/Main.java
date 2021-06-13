@@ -5,6 +5,7 @@ public class Main {
 
 
     public static double[][] createMatrix(){
+        System.out.println("Enter matrix size: ");
         Scanner scanner = new Scanner(System.in);
         String dims = scanner.nextLine();
         String[] arrDims = dims.split(" ");
@@ -13,6 +14,7 @@ public class Main {
 
         double[][] matrix = new double[numRows][numCols];
 
+        System.out.println("Enter matrix:\n");
         for (int row = 0; row < numRows; row++) {
             for (int col = 0; col < numCols; col++) {
                 matrix[row][col] = scanner.nextDouble();
@@ -108,11 +110,124 @@ public class Main {
         }
     }
 
+    public static void mainDiagonalTranspose(){
+        double[][] matrix = createMatrix();
+        double[][] transposedMatrix = new double[matrix.length][matrix[0].length];
+
+        for(int row = 0; row < matrix.length; row++) {
+            for (int col = 0; col < matrix[0].length; col++) {
+                transposedMatrix[row][col] = matrix[col][row];
+
+                if (col == 0) {
+                    System.out.print("\n");
+                }
+
+                System.out.print(transposedMatrix[row][col] + " ");
+            }
+
+
+        }
+    }
+
+    public static void sideDiagonalTranspose() {
+        double[][] matrix = createMatrix();
+        double[][] transposedMatrix = new double[matrix.length][matrix[0].length];
+
+        for(int row = 0; row < matrix.length; row++) {
+            for (int col = 0; col < matrix[0].length; col++) {
+                transposedMatrix[row][col] = matrix[matrix[0].length-1-col][matrix.length-1-row];
+
+                if (col == 0) {
+                    System.out.print("\n");
+                }
+
+                System.out.print(transposedMatrix[row][col] + " ");
+            }
+
+
+        }
+    }
+
+    public static void verticalLineTranspose() {
+        double[][] matrix = createMatrix();
+        double[][] transposedMatrix = new double[matrix.length][matrix[0].length];
+
+        for(int row = 0; row < matrix.length; row++) {
+            for (int col = 0; col < matrix[0].length; col++) {
+                transposedMatrix[row][col] = matrix[row][matrix[0].length-1-col];
+
+                if (col == 0) {
+                    System.out.print("\n");
+                }
+
+                System.out.print(transposedMatrix[row][col] + " ");
+            }
+
+
+        }
+
+    }
+
+    public static void horizontalLineTranspose() {
+        double[][] matrix = createMatrix();
+        double[][] transposedMatrix = new double[matrix.length][matrix[0].length];
+
+        for(int row = 0; row < matrix.length; row++) {
+            for (int col = 0; col < matrix[0].length; col++) {
+                transposedMatrix[row][col] = matrix[matrix.length-1-row][col];
+
+                if (col == 0) {
+                    System.out.print("\n");
+                }
+
+                System.out.print(transposedMatrix[row][col] + " ");
+            }
+
+
+        }
+
+    }
+
+    public static void transposeMenu() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("\n");
+        System.out.println("1. Main diagonal\n" +
+                "2. Side diagonal\n" +
+                "3. Vertical line\n" +
+                "4. Horizontal line\n" +
+                "Your choice: ");
+
+        int selection = scanner.nextInt();
+
+        switch (selection) {
+            case 1:
+                mainDiagonalTranspose();
+                break;
+            case 2:
+                sideDiagonalTranspose();
+                break;
+            case 3:
+                verticalLineTranspose();
+                break;
+            case 4:
+                horizontalLineTranspose();
+                break;
+
+            default:
+                System.out.println("Invalid selection.");
+
+
+
+        }
+    }
+
     public static void printMenu() {
         System.out.println("\n");
         System.out.println("1. Add matrices\n" +
                 "2. Multiply matrix by a constant\n" +
                 "3. Multiply matrices\n" +
+                "4. Transpose matrix\n" +
                 "0. Exit\n" +
                 "Your choice: ");
     }
@@ -140,6 +255,8 @@ public class Main {
                 case 3:
                     multiplyMatrices();
                     break;
+                case 4:
+                    transposeMenu();
                 case 0:
                     break;
                 default:
